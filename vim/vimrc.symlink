@@ -1,0 +1,196 @@
+" Source the plugins and set encoding
+so ~/.vim/plugins.vim
+set encoding=utf-8
+
+" Set the leader key
+let mapleader = ','
+
+
+"---------Visual-Styles---------"
+" Enable syntax highlighting
+syntax on
+
+
+" Set the color scheme to solarized and do the settings.
+colorscheme base16-default-dark
+
+
+" Turn on line numbers, Relative and standard numbers make hybrid line nubmers
+set number 
+set relativenumber
+"Make the backspace key actually work
+set backspace=indent,eol,start 
+set laststatus=2 " Needed for vim-airline
+
+
+"Set the tab characters how I like them
+set shiftwidth=2
+set tabstop=2
+set autoindent
+
+
+if has("autocmd")
+  " Enable file type detection.
+  " Use the default filetype settings, so that mail gets 'tw' set to 72,
+  " 'cindent' is on in C files, etc.
+  " Also load indent files, to automatically do language-dependent indenting.
+  filetype plugin indent on
+endif
+
+
+" set line break options to break on a word and put a **\t in front
+set breakindent
+set formatoptions=l
+set lbr
+set showbreak=**\ \ 
+
+
+"Set CtrlP settings
+" set the most recently used keybinding
+nmap <C-p> :CtrlPMRU<cr>
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_match_window = 'top,order:ttb,min:1,max:5,results:5'
+set spell spelllang=en_us
+let g:ctrlp_match_func = {'match' : 'matcher#cmatch' } " This is for the CtrlP c matching
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|vendor'
+noremap <C-o> :CtrlP<cr>
+" let g:ctrlp_use_caching = 0
+
+" CtrlP auto cache clearing. Clears the CtrlP cache when a file is saved.
+function! SetupCtrlP()
+  if exists("g:loaded_ctrlp") && g:loaded_ctrlp
+    augroup CtrlPExtension
+      autocmd!
+      autocmd FocusGained  * CtrlPClearCache
+      autocmd BufWritePost * CtrlPClearCache
+    augroup END
+  endif
+endfunction
+if has("autocmd")
+  autocmd VimEnter * :call SetupCtrlP()
+endif
+
+
+"Set j and k to move to actual next line, useful for when lines are wrapped
+nnoremap j gj
+nnoremap k gk
+
+
+" Swap files out of the project root
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+  
+
+"Edit my .vimrc file
+nmap <Leader>ev :e $MYVIMRC<cr>  
+"Edit my vim plugins file
+nmap <Leader>ep :e ~/.vim/plugins.vim<cr>  
+
+
+"Set the NERDTree keymapping
+nmap <Leader>nt :NERDTreeToggle<cr> " Toggle Nerdtree
+
+
+" For fast moving through buffers
+nmap <S-tab> :bNext<cr>
+
+
+nmap <Leader>f <Plug>(easymotion-bd-f2)
+nmap f <Plug>(easymotion-bd-f)
+nmap F <Plug>(easymotion-bd-w)
+
+"Automatically clean up the source code
+nmap <Leader>g mm gg=G 'm
+
+
+" Toggle keeping the cursor in the middle
+set so=999
+nmap <Leader>m :set so=999<cr>
+nmap <leader><leader>m :set so=0<cr>
+
+
+"Mappings for moving around splits
+noremap <C-j> <C-w>j
+noremap <C-h> <C-w>h
+noremap <C-l> <C-w>l
+noremap <C-k> <C-w>k
+
+"Mappings for quickly changing split sizes
+noremap <leader>vr :vertical resize 
+noremap <leader>rr :resize 
+
+" set the e key to go to the end of the line
+nnoremap e $
+" Double tap i while in insert to go to the end of the line.
+inoremap ii <Esc>$a
+" No shift to enter commands
+nnoremap ; :
+" Use Control-e for emmit commands
+let g:user_emmet_leader_key='<C-e>'
+"Set jk to be used as escape
+inoremap jk <Esc>
+
+
+" Fast movement
+noremap <S-j> 10j
+noremap <S-k> 10k
+noremap <S-h> 5h
+noremap <S-l> 5l
+
+"---------Search---------"
+set hlsearch " Turn on the search highlighting
+set incsearch " Turn on the incremental search
+set ignorecase "VVVVV
+set smartcase " Only case sensitive if there is a capital letter
+nmap <Leader><space> :nohlsearch<cr> " Get rid of the annoying highlighting
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+if executable('ag')
+		let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+endif
+
+
+let g:indentLine_char = '|'
+
+"---------Auto-Commands--------"
+"Autmatically source the .vimrc file after editing
+augroup autosourcing
+		autocmd!
+		autocmd BufWritePost .vimrc source %
+augroup END
+
+"---------Airline-Specific--------"
+" air-line
+set t_Co=256
+let g:airline_powerline_fonts = 1
+" let g:airline#extensions#tabline#enabled = 1
+if !exists('g:airline_symbols')
+		let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
+
+let g:airline_theme = 'durant'
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+
+"-- Auto close html tags
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.php,*.blade.php"
+"
+"My Notes --------------------
+" NerdTree = ,nt
+" Edit .vimrc file ,ev
+"
+" Change the surrounding chars
+" 	cs (change surrounding) <old char> <new char>

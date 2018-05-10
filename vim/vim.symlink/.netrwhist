@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/Users/daniel/Documents/Projects/Web/newsist/source/resources/views/layouts'
+let g:netrw_dirhist_2='/Users/daniel/Documents/Projects/Web/newsist/source/resources/views'
+let g:netrw_dirhist_3='/Users/daniel/Documents/Projects/Web/newsist/source/app/Http/Controllers'
+let g:netrw_dirhist_4='/Users/daniel/Documents/Projects/Web/newsist/source/database/migrations'
+let g:netrw_dirhist_5='/Users/daniel'
+let g:netrw_dirhist_6='/Users'
+let g:netrw_dirhist_7='/Users/daniel/Documents/Projects/Web/Untruth/.git'
