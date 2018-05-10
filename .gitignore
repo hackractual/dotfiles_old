@@ -1,0 +1,6 @@
+vim/vim.symlink/swap/*
+!vim/vim.symlink/swap/.gitignore
+vim/vim.symlink/backup/*
+!vim/vim.symlink/backup/.gitignore
+vim/vim.symlink/bundle/*
+!vim/vim.symlink/bundle/.gitignore
